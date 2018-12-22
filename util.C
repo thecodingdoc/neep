@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////
 // util.C  Copyright (c) 2018 Dario Ghersi and Sean West            //
-// Version: 20181213                                                //
+// Version: 20181223                                                //
 // Goal: Survival analysis with the minimum p-value method and      //
 //       empirically estimated null distribution                    //
 //                                                                  //
@@ -275,6 +275,30 @@ void storeClinicalData(vector<ClinicalSample> &clinical, string fileName)
   }
 
   infile.close();
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void printProgBar(unsigned int percent) {
+  // print a progress bar
+
+  string bar;
+
+  for (unsigned int i = 0; i < 50; i++) {
+    if (i < (percent / 2)) {
+      bar.replace(i, 1, "=");
+    }
+    else if (i == (percent / 2)) {
+      bar.replace(i, 1, ">");
+    }
+    else {
+      bar.replace(i, 1, " ");
+    }
+  }
+
+  cout << "\r" "[" << bar << "] ";
+  cout.width(3);
+  cout << percent << "%     " << flush;
 }
 
 //////////////////////////////////////////////////////////////////////
