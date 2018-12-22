@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////
 // util.h  Copyright (c) 2018 Dario Ghersi and Sean West            //
-// Version: 20181213                                                //
+// Version: 20181223                                                //
 // Goal: Survival analysis with the minimum p-value method and      //
 //       empirically estimated null distribution                    //
 //                                                                  //
@@ -46,6 +46,7 @@ bool comparator(const intDouble &, const intDouble &);
 char *getCmdOption(char **, char **, const string &);
 double logrank(vector<unsigned int> &, vector<bool> &,
 	       vector<unsigned int> &, vector<bool> &);
+void printProgBar(unsigned int);
 void storeClinicalData(vector<ClinicalSample> &, string);
 void storeExpression(vector<ClinicalSample> &, vector<ExpressionData> &,
                      vector<unsigned int> &, string);

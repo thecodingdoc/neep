@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////
 // neep.C  Copyright (c) 2018 Dario Ghersi and Sean West            //
-// Version: 20181213                                                //
+// Version: 20181223                                                //
 // Goal: Survival analysis with the minimum p-value method and      //
 //       empirically estimated null distribution                    //
 //                                                                  //
@@ -114,8 +114,19 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
   maxInd = floor(EXPR_THRESH * numSamples);
 
   // process each transcript (or gene)
+  double percentage = 0.0, oldPercentage = 0.0;
+  printProgBar(0.0);
   for (unsigned int i = 0; i < numExpr; i++) {
 
+    // call the progress bar every 100 transcripts
+    if ((i % 100) == 0 || numExpr < 100) {
+      double percentage = 100.0 * i / numExpr;
+      if (percentage > oldPercentage) {
+        oldPercentage = percentage;
+        printProgBar(percentage);
+      }
+    }
+    
     // sort the expression vector
     vector<intDouble> pPairs;
     intDouble foo;
@@ -168,6 +179,8 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
    blogrank.bestPos = bestPos;
    bestLogRank[i] = blogrank;
   }
+
+  printProgBar(100.0);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -182,10 +195,21 @@ void calculateNull(vector<ClinicalSample> &clinical,
   minInd = floor((1.0 - EXPR_THRESH) * numSamples);
   maxInd = floor(EXPR_THRESH * numSamples);
 
-
+  double percentage = 0.0, oldPercentage = 0.0;
+  unsigned itCompleted = 0;
+  printProgBar(0.0);
   #pragma omp parallel for
   for (unsigned int it = 0; it < numIter; it++) {
 
+    // call the progress bar every 100 iterations
+    if ((itCompleted % 500) == 0 || numIter < 500) {
+      double percentage = 100.0 * itCompleted / numIter;
+      if (percentage > oldPercentage) {
+        oldPercentage = percentage;
+        printProgBar(percentage);
+      }
+    }
+    
     // initialize the vector of indices to use in the permutations
     vector<unsigned int> myV(numSamples);
     for (unsigned int i = 0; i < numSamples; i++) {
@@ -197,7 +221,8 @@ void calculateNull(vector<ClinicalSample> &clinical,
 
     // process each threshold
     double maxStat = 0.0;
-   
+
+    //    printProgBar(0.0);
     for (unsigned int currPos = minInd; currPos <= maxInd; currPos++) {
       vector<unsigned int> timesA, timesB;
       vector<bool> eventA, eventB;
@@ -221,7 +246,12 @@ void calculateNull(vector<ClinicalSample> &clinical,
       }
     }
     nullDist[it] = maxStat;
+
+    #pragma omp atomic
+    itCompleted++;
   }
+
+  printProgBar(100.0);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -303,15 +333,15 @@ int main(int argc, char **argv)
   // calculate the best logrank statistics and corresponding split
   // for each isoform
   vector<BestLogRank> bestLogRank(expression.size());
-  cout << "Computing the minimum p-value for each threshold..." << flush;
+  cout << "Computing the minimum p-value for each threshold...\n" << flush;
   calculateBestLogRank(expression, clinical, index, bestLogRank);
-  cout << "done\n" << flush;  
+  cout << endl << flush;
 
   // calculate the null distribution
   vector<double> nullDist(p.numIter);
-  cout << "Computing the null distribution..." << flush;
+  cout << "Computing the null distribution...\n" << flush;
   calculateNull(clinical, nullDist, p.numIter);
-  cout << "done\n" << flush;
+  cout << endl << flush;
 
   // calculate the empirical p-values
   cout << "Calculating the empirical p-values..." << flush;

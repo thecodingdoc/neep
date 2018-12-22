@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////
 // neep.h  Copyright (c) 2018 Dario Ghersi and Sean West            //
-// Version: 20181213                                                //
+// Version: 20181223                                                //
 // Goal: Survival analysis with the minimum p-value method and      //
 //       empirically estimated null distribution                    //
 //                                                                  //
