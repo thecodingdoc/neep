@@ -30,6 +30,12 @@
 
 #define USAGE "\nUsage: neep -c CLINICAL -e EXPRESSION -O OUTPUT -n NUM_ITERATIONS\n\n"
 
+struct LrResult
+{
+	double stat;
+	string direction;
+};
+
 typedef pair<unsigned int, double> intDouble;
 
 //////////////////////////////////////////////////////////////////////
