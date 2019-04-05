@@ -25,6 +25,9 @@
 #include <fstream>
 #include <math.h>
 #include <vector>
+#include <random>
+#include <chrono>
+#include <algorithm>
 
 using namespace std;
 
@@ -45,7 +48,7 @@ Parameters::Parameters(char **argv, int argc)
   expressionFileName = getCmdOption(argv, argv + argc, "-e");
   outFileName = getCmdOption(argv, argv + argc, "-o");
   numIter = stoi(getCmdOption(argv, argv + argc, "-n"));
-
+  fdrThresh = stod(getCmdOption(argv, argv + argc, "-f"))
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -139,6 +142,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
    // identify the best threshold and corresponding max statistics
    double maxStat = 0.0;
    unsigned bestPos = 0;
+   string maxDir = "";
    
    //for (unsigned int currPos = minInd; currPos < maxInd; currPos++) {
    unsigned int currPos = minInd;
@@ -166,10 +170,11 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      }
 
      // calculate the logrank statistics
-     double currStat = logrank(timesA, eventA, timesB, eventB);
+     result = logrank(timesA, eventA, timesB, eventB);
      if (currStat > maxStat) {
-       maxStat = currStat;
+       maxStat = result.stat;
        bestPos = currPos;
+       maxDir = result.direction;
      }
      currPos++;
    }
@@ -177,6 +182,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
    struct BestLogRank blogrank;
    blogrank.stat = maxStat;
    blogrank.bestPos = bestPos;
+   blogrank.direction = direction;
    bestLogRank[i] = blogrank;
   }
 
@@ -194,6 +200,10 @@ void calculateNull(vector<ClinicalSample> &clinical,
   unsigned int minInd, maxInd;
   minInd = floor((1.0 - EXPR_THRESH) * numSamples);
   maxInd = floor(EXPR_THRESH * numSamples);
+
+  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  std::default_random_engine generator(seed);
+  std::uniform_real_distribution<double> uniform(0.0, 1.0);
 
   double percentage = 0.0, oldPercentage = 0.0;
   unsigned itCompleted = 0;
@@ -217,7 +227,7 @@ void calculateNull(vector<ClinicalSample> &clinical,
     }
     
     // shuffle the vector of indices
-    random_shuffle(myV.begin(), myV.end());
+    random_shuffle(myV.begin(), myV.end(), uniform);
 
     // process each threshold
     double maxStat = 0.0;
@@ -240,9 +250,9 @@ void calculateNull(vector<ClinicalSample> &clinical,
       }
 
       // calculate the logrank statistics
-      double currStat = logrank(timesA, eventA, timesB, eventB);
-      if (currStat > maxStat) {
-        maxStat = currStat;
+      result = logrank(timesA, eventA, timesB, eventB);
+      if (result.stat > maxStat) {
+        maxStat = result.stat;
       }
     }
     nullDist[it] = maxStat;
@@ -293,11 +303,12 @@ void printResults(string outFileName, Results &results,
   outFile << "ID\tBEST_STATISTICS\tBEST_SPLIT\tP-VALUE\tFDR\n";
 
   for (unsigned int i = 0; i < results.sortedOrder.size(); i++) {
-    outFile << expression[results.sortedOrder[i]].id << "\t" << fixed <<
-      bestLogRank[results.sortedOrder[i]].stat << "\t" <<
-      bestLogRank[results.sortedOrder[i]].bestPos <<
-      "\t" << scientific << results.rawP[results.sortedOrder[i]] << "\t" <<
-      results.adjustedP[results.sortedOrder[i]] << endl;
+    outFile << expression[results.sortedOrder[i]].id << "\t"
+    		<< fixed << bestLogRank[results.sortedOrder[i]].stat << "\t"
+			<< bestLogRank[results.sortedOrder[i]].bestPos << "\t"
+			<< scientific << results.rawP[results.sortedOrder[i]] << "\t"
+			<< results.adjustedP[results.sortedOrder[i]] << "\t"
+			<< bestLogRank[results.sortedOrder[i]].direction << endl;
   }
 
   outFile.close();

@@ -122,11 +122,11 @@ char *getCmdOption(char **begin, char **end, const string & option)
 
 //////////////////////////////////////////////////////////////////////
 
-double logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
+lrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
 	       vector<unsigned int> &timesB, vector<bool> &eventB)
 {
   // calculate the logrank test statistics
-  
+
   double lrStat = 0.0;
   unsigned int sizeA = timesA.size(), sizeB = timesB.size();
 
@@ -233,7 +233,16 @@ double logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
              pow(totObsB - totExpB, 2) / totExpB;
   }
 
-  return lrStat;
+  string direction = "high expression survived longer";
+  if (totObsA - totExpA < 0){
+	  direction = "low expression survived longer"
+  }
+
+  LrResult result;
+  result.stat = lrStat;
+  result.direction = direction;
+
+  return result;
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -45,6 +45,7 @@ struct ExpressionData {
 struct BestLogRank {
   double stat;
   unsigned int bestPos;
+  string direction;
 };
 
 ///////////////////////////////////////////////////////////////////////
