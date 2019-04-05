@@ -48,7 +48,7 @@ Parameters::Parameters(char **argv, int argc)
   expressionFileName = getCmdOption(argv, argv + argc, "-e");
   outFileName = getCmdOption(argv, argv + argc, "-o");
   numIter = stoi(getCmdOption(argv, argv + argc, "-n"));
-  fdrThresh = stod(getCmdOption(argv, argv + argc, "-f"))
+  //fdrThresh = stod(getCmdOption(argv, argv + argc, "-f"))
 }
 
 //////////////////////////////////////////////////////////////////////
