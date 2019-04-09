@@ -170,7 +170,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      }
 
      // calculate the logrank statistics
-     result = logrank(timesA, eventA, timesB, eventB);
+     LrResult result = logrank(timesA, eventA, timesB, eventB);
      if (currStat > maxStat) {
        maxStat = result.stat;
        bestPos = currPos;
