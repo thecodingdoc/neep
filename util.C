@@ -122,7 +122,7 @@ char *getCmdOption(char **begin, char **end, const string & option)
 
 //////////////////////////////////////////////////////////////////////
 
-lrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
+LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
 	       vector<unsigned int> &timesB, vector<bool> &eventB)
 {
   // calculate the logrank test statistics
