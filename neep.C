@@ -250,7 +250,7 @@ void calculateNull(vector<ClinicalSample> &clinical,
       }
 
       // calculate the logrank statistics
-      result = logrank(timesA, eventA, timesB, eventB);
+      LrResult result = logrank(timesA, eventA, timesB, eventB);
       if (result.stat > maxStat) {
         maxStat = result.stat;
       }
