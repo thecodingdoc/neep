@@ -50,7 +50,7 @@ vector<unsigned int> createFailureTimes(vector<unsigned int>,
 					vector<bool>);
 bool comparator(const intDouble &, const intDouble &);
 char *getCmdOption(char **, char **, const string &);
-double logrank(vector<unsigned int> &, vector<bool> &,
+LrResult logrank(vector<unsigned int> &, vector<bool> &,
 	       vector<unsigned int> &, vector<bool> &);
 void printProgBar(unsigned int);
 void storeClinicalData(vector<ClinicalSample> &, string);
