@@ -171,7 +171,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
 
      // calculate the logrank statistics
      LrResult result = logrank(timesA, eventA, timesB, eventB);
-     if (currStat > maxStat) {
+     if (result.stat > maxStat) {
        maxStat = result.stat;
        bestPos = currPos;
        maxDir = result.direction;
@@ -182,7 +182,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
    struct BestLogRank blogrank;
    blogrank.stat = maxStat;
    blogrank.bestPos = bestPos;
-   blogrank.direction = direction;
+   blogrank.direction = maxDir;
    bestLogRank[i] = blogrank;
   }
 
