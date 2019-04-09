@@ -235,7 +235,7 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
 
   string direction = "high expression survived longer";
   if (totObsA - totExpA < 0){
-	  direction = "low expression survived longer"
+	  direction = "low expression survived longer";
   }
 
   LrResult result;
