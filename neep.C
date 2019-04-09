@@ -201,10 +201,6 @@ void calculateNull(vector<ClinicalSample> &clinical,
   minInd = floor((1.0 - EXPR_THRESH) * numSamples);
   maxInd = floor(EXPR_THRESH * numSamples);
 
-  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-  std::default_random_engine generator(seed);
-  std::uniform_real_distribution<double> uniform(0.0, 1.0);
-
   double percentage = 0.0, oldPercentage = 0.0;
   unsigned itCompleted = 0;
   printProgBar(0.0);
@@ -227,7 +223,7 @@ void calculateNull(vector<ClinicalSample> &clinical,
     }
     
     // shuffle the vector of indices
-    random_shuffle(myV.begin(), myV.end(), uniform);
+    random_shuffle(myV.begin(), myV.end());
 
     // process each threshold
     double maxStat = 0.0;
