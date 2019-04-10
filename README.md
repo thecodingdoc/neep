@@ -6,8 +6,9 @@ Null Empirically Estimated P-values (NEEP) is a non-parametric, high-throughput 
 
 ```console
 cd ~/neep
-g++ neep.C util.C -std=c++11 -fopenmp
+g++ -O3 -o neep neep.C util.C -std=c++11 -fopenmp
 ```
+The ```-fopenmp``` option allows the computation of the null distribution to run in parallel on a multicore machine using the OpenMP library. It is optional but highly recommended as it speed things up.
 
 ## Usage
 
