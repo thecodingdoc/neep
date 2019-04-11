@@ -143,6 +143,10 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
    double maxStat = 0.0;
    unsigned bestPos = 0;
    string maxDir = "";
+   double hr = 0.0;
+   double mr1y = 0.0;
+   double mr2y = 0.0;
+   double mr5y = 0.0;
    
    //for (unsigned int currPos = minInd; currPos < maxInd; currPos++) {
    unsigned int currPos = minInd;
@@ -175,6 +179,10 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
        maxStat = result.stat;
        bestPos = currPos;
        maxDir = result.direction;
+       hr = result.hr;
+       mr1y = result.mr1y;
+       mr2y = result.mr2y;
+       mr5y = result.mr5y;
      }
      currPos++;
    }
@@ -183,6 +191,10 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
    blogrank.stat = maxStat;
    blogrank.bestPos = bestPos;
    blogrank.direction = maxDir;
+   blogrank.hr = hr;
+   blogrank.mr1y = mr1y;
+   blogrank.mr2y = mr2y;
+   blogrank.mr5y = mr5y;
    bestLogRank[i] = blogrank;
   }
 
@@ -296,7 +308,7 @@ void printResults(string outFileName, Results &results,
   outFile.open(outFileName, fstream::out);
   
   // print the header
-  outFile << "ID\tBEST_STATISTICS\tBEST_SPLIT\tP-VALUE\tFDR\n";
+  outFile << "ID\tBEST_STATISTICS\tBEST_SPLIT\tP-VALUE\tFDR\tDIRECTION\tHAZARD_RATIO\tMORTALITY_RATIO_1YR\tMORTALITY_RATIO_2YR\tMORTALITY_RATIO_5YR\n";
 
   for (unsigned int i = 0; i < results.sortedOrder.size(); i++) {
     outFile << expression[results.sortedOrder[i]].id << "\t"
@@ -304,7 +316,11 @@ void printResults(string outFileName, Results &results,
 			<< bestLogRank[results.sortedOrder[i]].bestPos << "\t"
 			<< scientific << results.rawP[results.sortedOrder[i]] << "\t"
 			<< results.adjustedP[results.sortedOrder[i]] << "\t"
-			<< bestLogRank[results.sortedOrder[i]].direction << endl;
+			<< bestLogRank[results.sortedOrder[i]].direction << "\t"
+			<< bestLogRank[results.sortedOrder[i]].hr << "\t"
+			<< bestLogRank[results.sortedOrder[i]].mr1y << "\t"
+			<< bestLogRank[results.sortedOrder[i]].mr2y << "\t"
+			<< bestLogRank[results.sortedOrder[i]].mr5y << endl;
   }
 
   outFile.close();

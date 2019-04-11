@@ -34,6 +34,10 @@ struct LrResult
 {
 	double stat;
 	string direction;
+	double hr;	 // Hazard ratio
+	double mr1y; // Mortality ratio at year 1 (365 days)
+	double mr2y; // Mortality ratio at year 2 (730 days)
+	double mr5y; // Mortality ratio at year 5 (1825 days)
 };
 
 typedef pair<unsigned int, double> intDouble;
