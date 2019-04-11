@@ -46,6 +46,10 @@ struct BestLogRank {
   double stat;
   unsigned int bestPos;
   string direction;
+  double hr;
+  double mr1y;
+  double mr2y;
+  double mr3y;
 };
 
 ///////////////////////////////////////////////////////////////////////

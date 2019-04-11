@@ -224,6 +224,49 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
     atRiskB = currAtRiskB;
   }
 
+  // calculate the hazard ratio
+  double l = (totObsA - totExpA) / variance;
+
+  // calculate the mortality ratios
+  double eventsA1y = 0;
+  double eventsA2y = 0;
+  double eventsA5y = 0;
+  double totalA = 0;
+  for (unsigned int i = 0; i < sizeA; i++){
+    if (pPairsA[i].second < 1825){
+    	eventsA5y += 1.0;
+    }
+    if (pPairsA[i].second < 730){
+    	eventsA2y += 1.0;
+    }
+    if (pPairsA[i].second < 365){
+    	eventsA1y += 1.0;
+    }
+    totalA += 1.0;
+  }
+  double eventsB1y = 0;
+  double eventsB2y = 0;
+  double eventsB5y = 0;
+  double totalB = 0;
+  for (unsigned int i = 0; i < sizeB; i++){
+    if (pPairsB[i].second < 1825){
+    	eventsB5y += 1.0;
+    }
+    if (pPairsB[i].second < 730){
+    	eventsB2y += 1.0;
+    }
+    if (pPairsB[i].second < 365){
+    	eventsB1y += 1.0;
+    }
+    totalB += 1.0;
+  }
+  // MR 1 year (365 days)
+  double mr1y = (eventsB1y * totalA) / (totalB * eventsB1y)
+  // MR 2 year (730 days)
+  double mr2y = (eventsB2y * totalA) / (totalB * eventsB2y)
+  // MR 3 year (1825 days)
+  double mr5y = (eventsB5y * totalA) / (totalB * eventsB5y)
+
   // calculate the chi squared statistics
   if (MANTEL) {
     lrStat = pow(num / sqrt(variance), 2);
@@ -241,6 +284,10 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   LrResult result;
   result.stat = lrStat;
   result.direction = direction;
+  result.hr = l;
+  result.mr1y = mr1y;
+  result.mr2y = mr2y;
+  result.mr5y = mr5y;
 
   return result;
 }
