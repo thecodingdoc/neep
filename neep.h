@@ -49,7 +49,7 @@ struct BestLogRank {
   double hr;
   double mr1y;
   double mr2y;
-  double mr3y;
+  double mr5y;
 };
 
 ///////////////////////////////////////////////////////////////////////

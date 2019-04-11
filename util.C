@@ -261,11 +261,11 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
     totalB += 1.0;
   }
   // MR 1 year (365 days)
-  double mr1y = (eventsB1y * totalA) / (totalB * eventsB1y)
+  double mr1y = (eventsB1y * totalA) / (totalB * eventsB1y);
   // MR 2 year (730 days)
-  double mr2y = (eventsB2y * totalA) / (totalB * eventsB2y)
+  double mr2y = (eventsB2y * totalA) / (totalB * eventsB2y);
   // MR 3 year (1825 days)
-  double mr5y = (eventsB5y * totalA) / (totalB * eventsB5y)
+  double mr5y = (eventsB5y * totalA) / (totalB * eventsB5y);
 
   // calculate the chi squared statistics
   if (MANTEL) {
