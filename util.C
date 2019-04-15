@@ -264,12 +264,6 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   // MR 3 year (1825 days)
   double mr5y = (eventsB5y * sizeA) / (sizeB * eventsA5y);
 
-  cout << mr1y << '\t' << mr2y << '\t' << mr5y << endl;
-  cout << eventsA1y << '\t' << eventsA2y << '\t' << eventsA5y << endl;
-  cout << eventsB1y << '\t' << eventsB2y << '\t' << eventsB5y << endl;
-  cout << sizeA << '\t' << sizeB;
-  cout << ' ' << endl;
-
   // calculate the chi squared statistics
   if (MANTEL) {
     lrStat = pow(num / sqrt(variance), 2);
