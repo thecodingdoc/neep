@@ -265,7 +265,7 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   double mr5y = (eventsB5y * sizeA) / (sizeB * eventsB5y);
 
   cout << mr1y << '\t' << mr2y << '\t' << mr5y << endl;
-  cout << eventsA1y << '\t' << eventsA2y << '\t' << eventsA3y << endl;
+  cout << eventsA1y << '\t' << eventsA2y << '\t' << eventsA5y << endl;
   cout << ' ' << endl;
 
   // calculate the chi squared statistics
