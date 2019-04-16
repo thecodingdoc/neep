@@ -48,7 +48,8 @@ Parameters::Parameters(char **argv, int argc)
   expressionFileName = getCmdOption(argv, argv + argc, "-e");
   outFileName = getCmdOption(argv, argv + argc, "-o");
   numIter = stoi(getCmdOption(argv, argv + argc, "-n"));
-  //fdrThresh = stod(getCmdOption(argv, argv + argc, "-f"))
+  expressionThreshold = stod(getCmdOption(argv, argv + argc, "-t"));
+  uniform = cmdOptionExists(argv, argv + argc, "-u");
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -103,7 +104,8 @@ Results::Results(vector<double> &pvalues)
 void calculateBestLogRank(vector<ExpressionData> &expression,
                           vector<ClinicalSample> &clinical,
                           vector<unsigned int> &index,
-                          vector<BestLogRank> &bestLogRank)
+                          vector<BestLogRank> &bestLogRank,
+						  unsigned double expressionThreshold)
 {
   // process each transcript/gene and return the best logrank
   // statistics and the corresponding best split
@@ -113,8 +115,8 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
 
   // calculate the minimum and maximum indices
   unsigned int minInd, maxInd;
-  minInd = floor((1.0 - EXPR_THRESH) * numSamples);
-  maxInd = floor(EXPR_THRESH * numSamples);
+  minInd = floor(expressionThreshold * numSamples);
+  maxInd = floor((1.0 - expressionThreshold) * numSamples);
 
   // process each transcript (or gene)
   double percentage = 0.0, oldPercentage = 0.0;
@@ -204,14 +206,22 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
 //////////////////////////////////////////////////////////////////////
 
 void calculateNull(vector<ClinicalSample> &clinical,
-                   vector<double> &nullDist, unsigned int numIter)
+                   vector<double> &nullDist,
+				   unsigned int numIter,
+				   unsigned double expressionThreshold,
+				   bool uniform)
 {
-  // calculate the null distribution for the minimum p-value stat
+  if (uniform){
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator(seed);
+    std::uniform_real_distribution<double> uniform(0.0, 1.0);
+  }
 
+  // calculate the null distribution for the minimum p-value stat
   unsigned int numSamples = clinical.size();
   unsigned int minInd, maxInd;
-  minInd = floor((1.0 - EXPR_THRESH) * numSamples);
-  maxInd = floor(EXPR_THRESH * numSamples);
+  minInd = floor(expressionThreshold * numSamples);
+  maxInd = floor((1.0 - expressionThreshold) * numSamples);
 
   double percentage = 0.0, oldPercentage = 0.0;
   unsigned itCompleted = 0;
@@ -228,14 +238,37 @@ void calculateNull(vector<ClinicalSample> &clinical,
       }
     }
     
-    // initialize the vector of indices to use in the permutations
-    vector<unsigned int> myV(numSamples);
-    for (unsigned int i = 0; i < numSamples; i++) {
-      myV[i] = i;
+    // construct the randomized int vector myV
+    if (uniform){
+      // expression calculation
+      vector<double> expression(numSamples);
+      for (unsigned int m = 0; m < numSamples; m++){
+    	  expression[m] = uniform(generator);
+      }
+
+      // sort spots
+      vector<intDouble> pPairs;
+      intDouble foo;
+      for (unsigned int j = 0; j < numSamples; j++) {
+        foo = make_pair(j, expression[j]);
+        pPairs.push_back(foo);
+      }
+      sort(pPairs.begin(), pPairs.end(), comparator);
+
+      vector<unsigned int> myV(numSamples);
+      for (unsigned int m = 0; m < numSamples; m++){
+    	  myV[i] = pPairs[i].first;
+      }
+    } else {
+	  // initialize the vector of indices to use in the permutations
+	  vector<unsigned int> myV(numSamples);
+	  for (unsigned int i = 0; i < numSamples; i++) {
+	    myV[i] = i;
+  	  }
+      // shuffle the vector of indices
+      random_shuffle(myV.begin(), myV.end());
     }
-    
-    // shuffle the vector of indices
-    random_shuffle(myV.begin(), myV.end());
+
 
     // process each threshold
     double maxStat = 0.0;
@@ -350,20 +383,20 @@ int main(int argc, char **argv)
   vector<ExpressionData> expression;
   vector<unsigned int> index; // the index of the clinical samples
                               // matching the expression samples
-  storeExpression(clinical, expression, index, p.expressionFileName);
+  storeExpression(clinical, expression, index, p.expressionFileName, p.expressionThreshold);
   cout << "done\n" << flush;
 
   // calculate the best logrank statistics and corresponding split
   // for each isoform
   vector<BestLogRank> bestLogRank(expression.size());
   cout << "Computing the minimum p-value for each threshold...\n" << flush;
-  calculateBestLogRank(expression, clinical, index, bestLogRank);
+  calculateBestLogRank(expression, clinical, index, bestLogRank, p.expressionThreshold);
   cout << endl << flush;
 
   // calculate the null distribution
   vector<double> nullDist(p.numIter);
   cout << "Computing the null distribution...\n" << flush;
-  calculateNull(clinical, nullDist, p.numIter);
+  calculateNull(clinical, nullDist, p.numIter, p.expressionThreshold, p.uniform);
   cout << endl << flush;
 
   // calculate the empirical p-values

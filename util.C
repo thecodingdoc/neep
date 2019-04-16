@@ -358,10 +358,12 @@ void printProgBar(unsigned int percent) {
 
 void storeExpression(vector<ClinicalSample> &clinical,
                      vector<ExpressionData> &expression,
-                     vector<unsigned int> &index, string fileName)
+                     vector<unsigned int> &index,
+					 string fileName,
+					 unsigned double expressionThreshold)
 {
   // store the expression values of transcripts (or genes) that
-  // have at least EXPR_THRESHOLD expression in all clinical samples
+  // have at least 1.0-expressionThreshold expression in all clinical samples
 
   string line, temp, id;
 
@@ -413,7 +415,7 @@ void storeExpression(vector<ClinicalSample> &clinical,
     }
 
     // if the fraction of expressed samples is >= threshold
-    if (double(isExpr) / numSamples >= EXPR_THRESH) {
+    if (double(isExpr) / numSamples >= (1.0 - expressionThreshold)) {
       struct ExpressionData ed;
       ed.id = id;
       ed.exprVect = expr;
