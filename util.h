@@ -28,7 +28,7 @@
 #define MANTEL 1 // Mantel-Cox test
 //#define EXPR_THRESH 0.85 // at least x% of transcripts have to be expressed
 
-#define USAGE "\nUsage: neep -c CLINICAL -e EXPRESSION -O OUTPUT -n NUM_ITERATIONS\n\n"
+#define USAGE "\nUsage: neep -c CLINICAL -e EXPRESSION -O OUTPUT -n NUM_ITERATIONS -t EXP_THRESHOLD (-u)\n\n"
 
 struct LrResult
 {

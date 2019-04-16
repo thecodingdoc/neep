@@ -56,6 +56,10 @@ void checkCommandLineArgs(char **argv, int argc)
     cerr << "Number of randomizations missing\n";
     err = true;
   }
+  if (!cmdOptionExists(argv, argv+argc, "-t")) {
+	cerr << "Expression threshold missing\n";
+	err = true;
+  }
  
   if (err) {
     cout << USAGE;
