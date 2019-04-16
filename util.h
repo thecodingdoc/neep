@@ -26,7 +26,7 @@
 #include "neep.h"
 
 #define MANTEL 1 // Mantel-Cox test
-#define EXPR_THRESH 0.85 // at least x% of transcripts have to be expressed
+//#define EXPR_THRESH 0.85 // at least x% of transcripts have to be expressed
 
 #define USAGE "\nUsage: neep -c CLINICAL -e EXPRESSION -O OUTPUT -n NUM_ITERATIONS\n\n"
 
@@ -59,6 +59,6 @@ LrResult logrank(vector<unsigned int> &, vector<bool> &,
 void printProgBar(unsigned int);
 void storeClinicalData(vector<ClinicalSample> &, string);
 void storeExpression(vector<ClinicalSample> &, vector<ExpressionData> &,
-                     vector<unsigned int> &, string);
+                     vector<unsigned int> &, string, unsigned double);
 
 #endif
