@@ -241,8 +241,9 @@ void calculateNull(vector<ClinicalSample> &clinical,
     vector<unsigned int> myV(numSamples);
 
     // construct the randomized int vector myV
-    if (uniform){
+    if (isUniform){
       // expression calculation
+      vector<double> expression(numSamples);
       for (unsigned int m = 0; m < numSamples; m++){
     	  expression[m] = uniform(generator);
       }
