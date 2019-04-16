@@ -63,8 +63,8 @@ class Parameters {
   string expressionFileName;
   string outFileName;
   unsigned int numIter;
-  unsigned double expressionThreshold;
-  bool uniform;
+  double expressionThreshold;
+  bool isUniform;
 
   Parameters(char **, int);
 };
@@ -91,9 +91,9 @@ void calculateBestLogRank(vector<ExpressionData> &,
                           vector<ClinicalSample> &,
                           vector<unsigned int> &,
                           vector<BestLogRank> &,
-						  unsigned double);
+						  double);
 void calculateNull(vector<ClinicalSample> &, vector<double> &,
-                   unsigned int, unsigned double, bool);
+                   unsigned int, double, bool);
 void calculatePValues(vector<double> &, vector<BestLogRank> &,
                       vector<double> &);
 void printResults(string, Results &, vector<BestLogRank> &);

@@ -364,7 +364,7 @@ void storeExpression(vector<ClinicalSample> &clinical,
                      vector<ExpressionData> &expression,
                      vector<unsigned int> &index,
 					 string fileName,
-					 unsigned double expressionThreshold)
+					 double expressionThreshold)
 {
   // store the expression values of transcripts (or genes) that
   // have at least 1.0-expressionThreshold expression in all clinical samples
