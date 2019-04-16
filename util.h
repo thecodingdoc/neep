@@ -59,6 +59,6 @@ LrResult logrank(vector<unsigned int> &, vector<bool> &,
 void printProgBar(unsigned int);
 void storeClinicalData(vector<ClinicalSample> &, string);
 void storeExpression(vector<ClinicalSample> &, vector<ExpressionData> &,
-                     vector<unsigned int> &, string, unsigned double);
+                     vector<unsigned int> &, string, double);
 
 #endif

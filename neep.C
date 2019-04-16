@@ -49,7 +49,7 @@ Parameters::Parameters(char **argv, int argc)
   outFileName = getCmdOption(argv, argv + argc, "-o");
   numIter = stoi(getCmdOption(argv, argv + argc, "-n"));
   expressionThreshold = stod(getCmdOption(argv, argv + argc, "-t"));
-  uniform = cmdOptionExists(argv, argv + argc, "-u");
+  isUniform = cmdOptionExists(argv, argv + argc, "-u");
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
                           vector<ClinicalSample> &clinical,
                           vector<unsigned int> &index,
                           vector<BestLogRank> &bestLogRank,
-						  unsigned double expressionThreshold)
+						  double expressionThreshold)
 {
   // process each transcript/gene and return the best logrank
   // statistics and the corresponding best split
@@ -208,10 +208,10 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
 void calculateNull(vector<ClinicalSample> &clinical,
                    vector<double> &nullDist,
 				   unsigned int numIter,
-				   unsigned double expressionThreshold,
-				   bool uniform)
+				   double expressionThreshold,
+				   bool isUniform)
 {
-  if (uniform){
+  if (isUniform){
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator(seed);
     std::uniform_real_distribution<double> uniform(0.0, 1.0);
@@ -238,10 +238,11 @@ void calculateNull(vector<ClinicalSample> &clinical,
       }
     }
     
+    vector<unsigned int> myV(numSamples);
+
     // construct the randomized int vector myV
     if (uniform){
       // expression calculation
-      vector<double> expression(numSamples);
       for (unsigned int m = 0; m < numSamples; m++){
     	  expression[m] = uniform(generator);
       }
@@ -255,13 +256,12 @@ void calculateNull(vector<ClinicalSample> &clinical,
       }
       sort(pPairs.begin(), pPairs.end(), comparator);
 
-      vector<unsigned int> myV(numSamples);
+
       for (unsigned int m = 0; m < numSamples; m++){
-    	  myV[i] = pPairs[i].first;
+    	  myV[m] = pPairs[m].first;
       }
     } else {
 	  // initialize the vector of indices to use in the permutations
-	  vector<unsigned int> myV(numSamples);
 	  for (unsigned int i = 0; i < numSamples; i++) {
 	    myV[i] = i;
   	  }
@@ -396,7 +396,7 @@ int main(int argc, char **argv)
   // calculate the null distribution
   vector<double> nullDist(p.numIter);
   cout << "Computing the null distribution...\n" << flush;
-  calculateNull(clinical, nullDist, p.numIter, p.expressionThreshold, p.uniform);
+  calculateNull(clinical, nullDist, p.numIter, p.expressionThreshold, p.isUniform);
   cout << endl << flush;
 
   // calculate the empirical p-values
