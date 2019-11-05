@@ -417,6 +417,11 @@ int main(int argc, char **argv)
   calculateNull(clinical, nullDist, p.numIter, p.expressionThreshold, p.isUniform);
   cout << endl << flush;
 
+  for (unsigned int i = 0; i < nullDist.size(); i++) {
+	  cout << nullDist[i] << flush;
+	  cout << "\n" << flush;
+  }
+
   // calculate the empirical p-values
   cout << "Calculating the empirical p-values..." << flush;
   vector<double> empiricalP(bestLogRank.size());
