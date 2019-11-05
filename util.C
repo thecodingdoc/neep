@@ -218,6 +218,8 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
 
     if (MANTEL) { // calculate the variance
       totAtRisk = atRiskA + atRiskB;
+      cout << totatrisk << flush;
+      cout << "   current totatrisk\n" << flush;
       variance += totFailures * (atRiskA / totAtRisk) * (1.0 - atRiskA / totAtRisk) *
                   (totAtRisk - totFailures) / (totAtRisk - 1.0);
       num += obsA - expA;
@@ -268,12 +270,12 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   // MR 3 year (1825 days)
   double mr5y = (eventsB5y * sizeA) / (sizeB * eventsA5y);
 
-  cout << num << flush;
-  cout << "   current num\n" << flush;
-  cout << variance << flush;
-  cout << "   current variance\n" << flush;
-  cout << mr1y << flush;
-  cout << "   current mr1y\n" << flush;
+  //cout << num << flush;
+  //cout << "   current num\n" << flush;
+  //cout << variance << flush;
+  ///cout << "   current variance\n" << flush;
+  ///cout << mr1y << flush;
+  //cout << "   current mr1y\n" << flush;
 
   // calculate the chi squared statistics
   if (MANTEL) {
