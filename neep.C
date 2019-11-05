@@ -183,14 +183,6 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
        eventB.push_back(clinical[index[pPairs[j].first]].event);
      }
 
-     cout << timesA[0] << flush;
-     cout << "   timesA\n" << flush;
-     cout << timesB[0] << flush;
-     cout << "   timesB\n" << flush;
-     cout << eventA[0] << flush;
-     cout << "   eventA\n" << flush;
-     cout << eventB[0] << flush;
-     cout << "   eventB\n" << flush;
 
      // calculate the logrank statistics
      LrResult result = logrank(timesA, eventA, timesB, eventB);
