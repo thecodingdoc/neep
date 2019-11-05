@@ -165,6 +165,10 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
 						     timesB, eventB);
   unsigned int fSize = failures.size();
 
+  for (unsigned int i = 0; i < fsize; i++){
+	  cout << failures[i] << "\n" << flush;
+  }
+
   // compute the observed and expected events
   double obsA = 0.0, obsB = 0.0, atRiskA = sizeA, atRiskB = sizeB;
   unsigned int indexA = 0.0, indexB = 0.0;
