@@ -152,22 +152,10 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   }
   sort(pPairsB.begin(), pPairsB.end(), comparator);
 
-//  for (unsigned int i = 0; i < max(timesA.size(), timesB.size()); i++){
-//	  if (i > timesA.size()){
-//		cout << "NA" << "\t" << timesB[i] << "\t" << "NA" << "\t" << eventB[i] << "\n" << flush;
-//	  } else {
-//		cout << timesA[i] << "\t" << timesB[i] << "\t" << eventA[i] << "\t" << eventB[i] << "\n" << flush;
-//	  }
- // }
-
   // create a vector of failure times
   vector<unsigned int> failures = createFailureTimes(timesA, eventA,
 						     timesB, eventB);
   unsigned int fSize = failures.size();
-
-  //for (unsigned int i = 0; i < fSize; i++){
-//	  cout << failures[i] << "\n" << flush;
-//  }
 
   // compute the observed and expected events
   double obsA = 0.0, obsB = 0.0, atRiskA = sizeA, atRiskB = sizeB;
@@ -231,8 +219,6 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
     if (MANTEL) { // calculate the variance
       totAtRisk = atRiskA + atRiskB;
       if (totAtRisk > 1){
-	    //cout << totAtRisk << flush;
-	    //cout << "   current totatrisk\n" << flush;
 	    variance += totFailures * (atRiskA / totAtRisk) * (1.0 - atRiskA / totAtRisk) *
 	  			    (totAtRisk - totFailures) / (totAtRisk - 1.0);
 	    num += obsA - expA;
@@ -285,13 +271,6 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   // MR 3 year (1825 days)
   double mr5y = (eventsB5y * sizeA) / (sizeB * eventsA5y);
 
-  //cout << num << flush;
-  //cout << "   current num\n" << flush;
-  //cout << variance << flush;
-  //cout << "   current variance\n" << flush;
-  //cout << mr1y << flush;
-  //cout << "   current mr1y\n" << flush;
-
   // calculate the chi squared statistics
   if (MANTEL) {
     lrStat = pow(num / sqrt(variance), 2);
@@ -305,8 +284,6 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   if (totObsA - totExpA < 0){
 	  direction = "low expression survived longer";
   }
-
-  //exit(0);
 
   LrResult result;
   result.stat = lrStat;
