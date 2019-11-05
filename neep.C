@@ -118,11 +118,6 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
   minInd = floor(expressionThreshold * numSamples);
   maxInd = floor((1.0 - expressionThreshold) * numSamples);
 
-
-  cout << minInd << flush;
-  cout << "   minimum index\n" << flush;
-
-
   // process each transcript (or gene)
   double percentage = 0.0, oldPercentage = 0.0;
   printProgBar(0.0);
@@ -161,9 +156,6 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      vector<unsigned int> timesA, timesB;
      vector<bool> eventA, eventB;
 
-     //cout << currPos << flush;
-     //cout << "   current position\n" << flush;
-
      // take care of ties
      while (fabs(expression[i].exprVect[index[pPairs[currPos].first]] -
                 expression[i].exprVect[index[pPairs[currPos + 1].first]]) <
@@ -187,9 +179,6 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      // calculate the logrank statistics
      LrResult result = logrank(timesA, eventA, timesB, eventB);
 
-     //cout << result.stat << flush;
-     //cout << "   current stat\n" << flush;
-
      if (result.stat > maxStat) {
        maxStat = result.stat;
        bestPos = currPos;
@@ -199,9 +188,6 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
        mr2y = result.mr2y;
        mr5y = result.mr5y;
      }
-
-     //cout << bestPos << flush;
-     //cout << "   best position\n\n" << flush;
 
      currPos++;
    }
@@ -405,8 +391,6 @@ int main(int argc, char **argv)
   // calculate the best logrank statistics and corresponding split
   // for each isoform
   vector<BestLogRank> bestLogRank(expression.size());
-  cout << p.expressionThreshold << flush;
-  cout << "   expression threshold\n" << flush;
   cout << "Computing the minimum p-value for each threshold...\n" << flush;
   calculateBestLogRank(expression, clinical, index, bestLogRank, p.expressionThreshold);
   cout << endl << flush;
