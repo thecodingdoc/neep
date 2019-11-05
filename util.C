@@ -218,7 +218,7 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
 
     if (MANTEL) { // calculate the variance
       totAtRisk = atRiskA + atRiskB;
-      cout << totatrisk << flush;
+      cout << totAtRisk << flush;
       cout << "   current totatrisk\n" << flush;
       variance += totFailures * (atRiskA / totAtRisk) * (1.0 - atRiskA / totAtRisk) *
                   (totAtRisk - totFailures) / (totAtRisk - 1.0);
