@@ -306,7 +306,7 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
 	  direction = "low expression survived longer";
   }
 
-  exit(0);
+  //exit(0);
 
   LrResult result;
   result.stat = lrStat;
