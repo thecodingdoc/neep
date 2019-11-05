@@ -185,6 +185,10 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
 
      // calculate the logrank statistics
      LrResult result = logrank(timesA, eventA, timesB, eventB);
+
+     cout << result.stat << flush;
+     cout << "   current stat\n" << flush;
+
      if (result.stat > maxStat) {
        maxStat = result.stat;
        bestPos = currPos;
@@ -196,7 +200,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      }
 
      cout << bestPos << flush;
-     cout << "   best position\n" << flush;
+     cout << "   best position\n\n" << flush;
 
      currPos++;
    }
