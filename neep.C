@@ -191,6 +191,10 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
        mr2y = result.mr2y;
        mr5y = result.mr5y;
      }
+
+     cout << bestPos << flush;
+     cout << "   best position\n" << flush;
+
      currPos++;
    }
    
