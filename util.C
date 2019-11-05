@@ -152,6 +152,10 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   }
   sort(pPairsB.begin(), pPairsB.end(), comparator);
 
+  for (unsigned int i = 0; i < timesA.size(), i++){
+	  cout << timesA[i] << "   -   " << timesB[i] << "   -   " << eventA[i] << "   -   " << eventB[i] << "\n" << flush;
+  }
+
   // create a vector of failure times
   vector<unsigned int> failures = createFailureTimes(timesA, eventA,
 						     timesB, eventB);
