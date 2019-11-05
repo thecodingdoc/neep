@@ -153,7 +153,7 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
   sort(pPairsB.begin(), pPairsB.end(), comparator);
 
   for (unsigned int i = 0; i < max(timesA.size(), timesB.size()); i++){
-	  if (i > timesA.size){
+	  if (i > timesA.size()){
 		cout << "NA" << "\t" << timesB[i] << "\t" << "NA" << "\t" << eventB[i] << "\n" << flush;
 	  } else {
 		cout << timesA[i] << "\t" << timesB[i] << "\t" << eventA[i] << "\t" << eventB[i] << "\n" << flush;
