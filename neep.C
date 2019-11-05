@@ -161,8 +161,8 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      vector<unsigned int> timesA, timesB;
      vector<bool> eventA, eventB;
 
-     cout << currPos << flush;
-     cout << "   current position\n" << flush;
+     //cout << currPos << flush;
+     //cout << "   current position\n" << flush;
 
      // take care of ties
      while (fabs(expression[i].exprVect[index[pPairs[currPos].first]] -
@@ -187,8 +187,8 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      // calculate the logrank statistics
      LrResult result = logrank(timesA, eventA, timesB, eventB);
 
-     cout << result.stat << flush;
-     cout << "   current stat\n" << flush;
+     //cout << result.stat << flush;
+     //cout << "   current stat\n" << flush;
 
      if (result.stat > maxStat) {
        maxStat = result.stat;
@@ -200,8 +200,8 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
        mr5y = result.mr5y;
      }
 
-     cout << bestPos << flush;
-     cout << "   best position\n\n" << flush;
+     //cout << bestPos << flush;
+     //cout << "   best position\n\n" << flush;
 
      currPos++;
    }
@@ -416,11 +416,6 @@ int main(int argc, char **argv)
   cout << "Computing the null distribution...\n" << flush;
   calculateNull(clinical, nullDist, p.numIter, p.expressionThreshold, p.isUniform);
   cout << endl << flush;
-
-  for (unsigned int i = 0; i < nullDist.size(); i++) {
-	  cout << nullDist[i] << flush;
-	  cout << "\n" << flush;
-  }
 
   // calculate the empirical p-values
   cout << "Calculating the empirical p-values..." << flush;
