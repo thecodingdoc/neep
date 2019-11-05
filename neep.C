@@ -161,6 +161,9 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      vector<unsigned int> timesA, timesB;
      vector<bool> eventA, eventB;
 
+     cout << currPos << flush;
+     cout << "   current position\n" << flush;
+
      // take care of ties
      while (fabs(expression[i].exprVect[index[pPairs[currPos].first]] -
                 expression[i].exprVect[index[pPairs[currPos + 1].first]]) <
