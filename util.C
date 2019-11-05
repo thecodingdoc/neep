@@ -165,7 +165,7 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
 						     timesB, eventB);
   unsigned int fSize = failures.size();
 
-  for (unsigned int i = 0; i < fsize; i++){
+  for (unsigned int i = 0; i < fSize; i++){
 	  cout << failures[i] << "\n" << flush;
   }
 
