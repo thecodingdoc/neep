@@ -388,6 +388,7 @@ int main(int argc, char **argv)
   // calculate the best logrank statistics and corresponding split
   // for each isoform
   vector<BestLogRank> bestLogRank(expression.size());
+  cout << p.expressionThreshold << flush;
   cout << "Computing the minimum p-value for each threshold...\n" << flush;
   cout << p.expressionThreshold << flush;
   calculateBestLogRank(expression, clinical, index, bestLogRank, p.expressionThreshold);
