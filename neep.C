@@ -345,6 +345,7 @@ void printResults(string outFileName, Results &results,
   // print the header
   outFile << "ID\tBEST_STATISTICS\tBEST_SPLIT\tP-VALUE\tFDR\tDIRECTION\tHAZARD_RATIO\tMORTALITY_RATIO_1YR\tMORTALITY_RATIO_2YR\tMORTALITY_RATIO_5YR\n";
 
+  // print all calculated values
   for (unsigned int i = 0; i < results.sortedOrder.size(); i++) {
     outFile << expression[results.sortedOrder[i]].id << "\t"
     		<< fixed << bestLogRank[results.sortedOrder[i]].stat << "\t"

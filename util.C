@@ -197,6 +197,7 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
       indexB++;
     }
 
+    // handle the situation where the patient with the latest followup did not survive
     if (i < (fSize - 1)) {
       while (pPairsB[indexB].second < failures[i + 1] && indexB < sizeB) {
         indexB++;
@@ -280,6 +281,7 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
              pow(totObsB - totExpB, 2) / totExpB;
   }
 
+  // set direction of survival
   string direction = "high expression survived longer";
   if (totObsA - totExpA < 0){
 	  direction = "low expression survived longer";
