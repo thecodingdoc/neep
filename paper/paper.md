@@ -1,5 +1,5 @@
 ---
-title: 'NEEP: null empirically estimated p-values and SINBAD: survival-significant isoform networks by altered domain-inclusion'
+title: 'NEEP: null empirically estimated p-values for high-throughput molecular survival analysis'
 tags:
   - Python
   - bioinformatics
