@@ -9,6 +9,8 @@ authors:
   - name: Sean West
     orcid: 0000-0002-1394-1999
     affiliation: 1
+  - name: Hesham Ali
+    affiliation: 1
   - name: Dario Ghersi
     orcid: 0000-0002-0630-0843
     affiliation: 1
@@ -22,7 +24,7 @@ bibliography: paper.bib
 # Summary
 
 When conducting survival analysis for molecular expression, a researcher has
-two options: Cox-PH (CPH) or Kaplan-Meier (KM). CPH uses regression to
+two main options: Cox-Proportional Hazards (CPH) or Kaplan-Meier (KM). CPH uses regression to
 calculate the survival-significance of each expression vector. It has two 
 assumptions that are frequently violated in cancer research. First, CPH 
 assumes that the censoring mechanism is not associated with patient survival.
@@ -50,7 +52,7 @@ range of p-values, of which we could sample the minimum. However,
 taking the lowest p-value from a range will produce a non-uniform, 
 right-skewed distribution of p-values. Since p-values should be uniform
 under the null distribution, the skewed distribution cannot be used for
-valid statistical analyis.
+valid statistical analysis.
 An equation was developed that could predict the correct p-values was
 developed [@Lausen:1992]; however, it is not precise enough for p-value correction
 procedures that are sensitive to very small p-value changes. Thus, we 
@@ -58,7 +60,7 @@ developed NEEP, which overcomes these issues by re-sampling permutations
 of the patients to construct a null distribution in parallel. Using this
 null distribution, NEEP transforms the p-values so they are statistically
 valid. Finally, NEEP conducts FDR p-value correction and calculates 
-some effect sizes, the hazard ratio and the 1, 2, and 5 year mortality
+effect sizes, the hazard ratio and the 1, 2, and 5 year mortality
 ratios.
 
 
