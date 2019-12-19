@@ -1,0 +1,11 @@
+NOTE: For this test to work, the NEEP executable must be found in your PATH.
+To test the installation of NEEP, run the following command from the test directory (same as this test_instructions.txt file).
+
+. test.sh
+
+OR
+
+sh test.sh
+
+If NEEP is installed correct, no errors should appear and a test_output.txt file will appear in this directory.
+No columns of this output should have all 0's. 
