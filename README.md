@@ -4,8 +4,7 @@ Null Empirically Estimated P-values (NEEP) is a non-parametric, high-throughput 
 
 Additional processing on NEEP output into protein interaction visualizations can be done using SINBAD: Survival-significant Isoform Networks By Altered Domain-inclusion (https://github.com/scwest/SINBAD). This project has been submitted to review for JOSS. Review status may be checked here:
 
-HTML: <a href="https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9"><img src="https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9/status.svg"></a>
-Markdown: [![status](https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9/status.svg)](https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9)
+[![status](https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9/status.svg)](https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9)
 
 ## Installation
 
