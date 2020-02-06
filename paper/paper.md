@@ -30,7 +30,7 @@ assumptions that are frequently violated in cancer research. First, CPH
 assumes that the censoring mechanism is not associated with patient survival.
 When using patients from cancer research, those who survive to the end of 
 the study are likely to have a higher rate of survival than those who did
-not [@west:2019]. Second, the core of CPH is the proportional hazards assumption. 
+not [@west2019]. Second, the core of CPH is the proportional hazards assumption. 
 For molecular data, this assumes that the effect that a molecule has on survival
 is constant over time. This cannot be the case as the pathology of cancer
 changes across stages and time. 
@@ -40,7 +40,7 @@ low expression of the molecule of interest have altered survival rates
 from those with high expression. KM has the same two assumptions mentioned
 for CPH. In addition, high-throughput KM survival analysis
 using a single threshold has been shown to be sensitive to patient group
-re-sampling [@sehgal:2015]. However, we can get around the first assumption by conducting
+re-sampling [@sehgal2015]. However, we can get around the first assumption by conducting
 the log-rank test along a range of splits, where the threshold that 
 splits the expression-ordered list of patients into low- and high-expression
 is tested at multiple points.  The second assumption is weaker in KM than
@@ -54,7 +54,7 @@ right-skewed distribution of p-values. Since p-values should be uniform
 under the null distribution, the skewed distribution cannot be used for
 valid statistical analysis.
 An equation was developed that could predict the correct p-values was
-developed [@lausen:1992]; however, it is not precise enough for p-value correction
+developed [@lausen1992]; however, it is not precise enough for p-value correction
 procedures that are sensitive to very small p-value changes. Thus, we 
 developed NEEP, which overcomes these issues by re-sampling permutations
 of the patients to construct a null distribution in parallel. Using this
