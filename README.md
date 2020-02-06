@@ -2,7 +2,10 @@
 ## Purpose
 Null Empirically Estimated P-values (NEEP) is a non-parametric, high-throughput survival analysis meant for molecular expression data. The algorithm empirically finds the optimal cutoff (within a range) to separate expression values into *low* and *high*. The survival curves for this optimal cutoff are constructed. We calculate the MANTEL log-rank test for these optimally separated curves. The subsequent p-value distribution across all molecular objects will be skewed. To estimate the correct p-values, we sample 1M (or user specified) 'genes', which are a uniform permutation of the patient survival values from the provided clinical data. Then, p-values are estimated empirically and adjusted using the Benjamini-Hochberg approach.
 
-Additional processing on NEEP output into protein interaction visualizations can be done using SINBAD: Survival-significant Isoform Networks By Altered Domain-inclusion (https://github.com/scwest/SINBAD).
+Additional processing on NEEP output into protein interaction visualizations can be done using SINBAD: Survival-significant Isoform Networks By Altered Domain-inclusion (https://github.com/scwest/SINBAD). This project has been submitted to review for JOSS. Review status may be checked here:
+
+HTML: <a href="https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9"><img src="https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9/status.svg"></a>
+Markdown: [![status](https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9/status.svg)](https://joss.theoj.org/papers/e665412c4fecaa72ad20a9533315efd9)
 
 ## Installation
 
