@@ -59,7 +59,7 @@ procedures that are sensitive to very small p-value changes. Thus, we
 developed NEEP, which overcomes these issues by re-sampling permutations
 of the patients to construct a null distribution in parallel. Using this
 null distribution, NEEP transforms the p-values so they are statistically
-valid. Finally, NEEP conducts FDR p-value correction and calculates 
+valid. Finally, NEEP conducts False Discovery Rate (FDR) p-value correction and calculates 
 effect sizes, the hazard ratio and the 1, 2, and 5 year mortality
 ratios.
 
@@ -68,9 +68,9 @@ ratios.
 
 **Research purpose**: `NEEP` offers non-parametric, high-throughput, and statistically valid survival analysis of molecular expression vectors.
 
-**Problem solved**: `NEEP` permutes different orders of patients and calculates their p-values across a range in order to produce a `Null Empirically Estimated P-value' for each molecular expression vector, thus overcoming the assumptions of Cox-PH survival analyiss and the issues of correct p-value estimation. 
+**Problem solved**: `NEEP` permutes different orders of patients and calculates their p-values across a range in order to produce a `Null Empirically Estimated P-value' for each molecular expression vector, thus overcoming the assumptions of CPH survival analyiss and the issues of correct p-value estimation. 
 
-**Target audience**: The target audience is anyone conducting molecular, high-throughput survival analysis that does not have confounding clinical variables and whose expression vectors may violate Cox-PH assumptions. Full documentation is available in the [project repository](https://github.com/thecodingdoc/neep).
+**Target audience**: The target audience is anyone conducting molecular, high-throughput survival analysis that does not have confounding clinical variables and whose expression vectors may violate CPH assumptions. Full documentation is available in the [project repository](https://github.com/thecodingdoc/neep).
 
 
 # Acknowledgements 
@@ -79,7 +79,7 @@ This project was partly funded by a
 University of Nebraska Collaboration Initiative/
 System Science Seed Grant to Sushil Kumar, Hesham Ali, and Dario Ghersi and
 by the NIH AA026428 R21 grant to Sushil Kumar. The funder
-website is https://nebraska.edu/collaborationinitiative/. The funders had no role in project design,
+website is https://nebraska.edu/collaboration-initiative. The funders had no role in project design,
 data collection and analysis, decision to publish, or
 preparation of the manuscript.
 
