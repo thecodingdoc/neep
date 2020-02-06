@@ -16,8 +16,7 @@ The ```neep``` executable will be located in ~/neep. Add this to your path varia
 ## Usage
 
 ```console
-cd ~/neep
-./a.out -c <clinical filename> -e <expression filename> -o <output filename> -n <size of null distribution to sample> -t <minimum threshold to check> -u
+neep -c <clinical filename> -e <expression filename> -o <output filename> -n <size of null distribution to sample> -t <minimum threshold to check> -u
 ```
 
 The minimum threshold to check refers to the lowest acceptable split between low and high expression when conducting KM tests. The maximum threshold will automatically be 1-t. The ```-u``` (optional) option is for to force a uniform null distribution. We were seeing some weird activity from c++ method random_shuffle() and we found that manually assigning a uniform distribution generator we obtained nulls which matched those from the Python and Julia programming languages (previous versions of NEEP).
