@@ -10,9 +10,10 @@ Adding Makefile instructions shortly.
 
 ```console
 cd ~/neep
-g++ -O3 -o neep neep.C util.C -std=c++11 -fopenmp
+make
 ```
-The ```-fopenmp``` option allows the computation of the null distribution to run in parallel on a multicore machine using the OpenMP library. It is optional but highly recommended as it speed things up.
+
+The ```neep``` executable will be located in ~/neep. Add this to your path variable. 
 
 ## Usage
 
