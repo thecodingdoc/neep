@@ -13,6 +13,15 @@ make
 
 The ```neep``` executable will be located in ~/neep. Add this to your path variable. 
 
+The installation can be tested using the following commands.
+
+```console
+cd ~/neep/test
+sh test.sh
+```
+
+The output listed in "test\_output.txt" should be identical to that in "correct\_test\_output.txt"
+
 ## Usage
 
 ```console
