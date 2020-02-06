@@ -119,7 +119,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
   maxInd = floor((1.0 - expressionThreshold) * numSamples);
 
   // process each transcript (or gene)
-  double percentage = 0.0, oldPercentage = 0.0;
+  double oldPercentage = 0.0;
   printProgBar(0.0);
   for (unsigned int i = 0; i < numExpr; i++) {
 
@@ -224,7 +224,7 @@ void calculateNull(vector<ClinicalSample> &clinical,
   minInd = floor(expressionThreshold * numSamples);
   maxInd = floor((1.0 - expressionThreshold) * numSamples);
 
-  double percentage = 0.0, oldPercentage = 0.0;
+  double oldPercentage = 0.0;
   unsigned itCompleted = 0;
   printProgBar(0.0);
   #pragma omp parallel for
