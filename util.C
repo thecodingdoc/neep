@@ -198,12 +198,16 @@ LrResult logrank(vector<unsigned int> &timesA, vector<bool> &eventA,
     }
 
     // handle the situation where the patient with the latest followup did not survive
+    // This bit of code may be producing errors
+    /*
     if (i < (fSize - 1)) {
       while (pPairsB[indexB].second < failures[i + 1] && indexB < sizeB) {
         indexB++;
         currAtRiskB--;
       }
     }
+    */
+    // It needs more testing and failure-proofing
 
     // calculate the total failures
     totFailures = obsA + obsB;

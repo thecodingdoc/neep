@@ -122,6 +122,11 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
   double oldPercentage = 0.0;
   printProgBar(0.0);
   for (unsigned int i = 0; i < numExpr; i++) {
+	//cout << "\n\n" << i << "\n";
+	//cout << index[i] << "\n";
+	//cout << expression[i].id << "\n";
+
+
 
     // call the progress bar every 100 transcripts
     if ((i % 100) == 0 || numExpr < 100) {
@@ -201,9 +206,12 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
    blogrank.mr2y = mr2y;
    blogrank.mr5y = mr5y;
    bestLogRank[i] = blogrank;
+
   }
 
+
   printProgBar(100.0);
+
 }
 
 //////////////////////////////////////////////////////////////////////
