@@ -26,9 +26,9 @@ cd ~/neep/test
 sh test.sh
 ```
 
-The output listed in "test\_output.txt" should be nearly identical to that in "correct\_test\_output.txt". The order of the ID, the BEST\_STATISTIC, the BEST\_SPLIT, and the DIRECTION columns should be identical. The remaining columns are subject to changes from the null distribution bootstrapping procedure.
+The output listed in "test\_output.txt" should be nearly identical to that in "correct\_test\_output.txt". The ID, the BEST\_STATISTIC, the BEST\_SPLIT, and the DIRECTION columns should be identical. The remaining columns are subject to changes from the null distribution bootstrapping procedure. For rows with tied adjusted NEEP p-values, their order might be different.
 
-For preprocessing data before NEEP, any transformation which does not alter the expression order of patients for individual molecular objects will not effect NEEP results. For example, log-transformation is not required but not prohibited. The test data was generated and modified from the lung cancer (LUAD) dataset from the TCGA portal (https://portal.gdc.cancer.gov/).
+For preprocessing data before NEEP, any transformation which does not alter the expression order of patients for individual molecular objects will not effect NEEP results. For example, log-transformation is not required but not prohibited. The test data was generated and modified from the lung cancer (LUAD) dataset from the TCGA portal (https://portal.gdc.cancer.gov/). The test data should not be used for downstream biological analyses.
 
 ## Usage
 
@@ -48,6 +48,7 @@ Each row is a patient. There is no header. *Days to event* is a combination of t
 ```
 
 **Expression file**
+Any type of expression can be used for NEEP: PPI abundance, gene expression, transcripts, transcript ratios, exon junction ratios, etc.
 This file is the normal expression matrix, where the rows are the molecular objects of interest and the columns are the patients. The patients must be the same set from the clinical file and they must be in identical order. 
 
 ```
