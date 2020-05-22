@@ -8,14 +8,16 @@ Additional processing on NEEP output into protein interaction visualizations can
 
 ## Installation
 
-Installation requires g++ and OpenMP. NEEP can be installed with the following commands.
+Installation requires g++, git, and OpenMP. NEEP can be installed with the following commands.
 
 ```console
+git clone https://github.com/thecodingdoc/neep.git
 cd ~/neep
 make
 ```
 
 The ```neep``` executable will be located in ~/neep. Add this to your path variable. 
+If ```git``` is not used but the repository zip is downloaded instead, the directory name should be changed to neep and chmod should be used to allow reading and writing.  
 
 The installation can be tested using the following commands.
 
@@ -24,7 +26,9 @@ cd ~/neep/test
 sh test.sh
 ```
 
-The output listed in "test\_output.txt" should be identical to that in "correct\_test\_output.txt"
+The output listed in "test\_output.txt" should be nearly identical to that in "correct\_test\_output.txt". The order of the ID, the BEST\_STATISTIC, the BEST\_SPLIT, and the DIRECTION columns should be identical. The remaining columns are subject to changes from the null distribution bootstrapping procedure.
+
+For preprocessing data before NEEP, any transformation which does not alter the expression order of patients for individual molecular objects will not effect NEEP results. For example, log-transformation is not required but not prohibited. The test data was generated and modified from the lung cancer (LUAD) dataset from the TCGA portal (https://portal.gdc.cancer.gov/).
 
 ## Usage
 
@@ -53,12 +57,17 @@ This file is the normal expression matrix, where the rows are the molecular obje
 ```
 
 **Output file**
-The output will be in tab-separated format with a header.
-Column 1: molecular object id
-Column 2: best log-rank statistic
+The output will be in tab-separated format with a header. Each line corresponds to one line from the expression matrix input. The molecular objects are ordered from lowest to highest adjusted NEEP p-value.
+
+Column 1: molecular object ID; the same IDs used from the user defined expression file
+Column 2: best log-rank statistic; the highest log-rank statistic generated across the threshold range
 Column 3: null empirically estimated p-value (neep)
-Column 4: adjusted neep
+Column 4: FDR adjusted neep; column 3 after FDR p-value correction
 Column 5: direction (i.e. which survival curve is higher, *low* or *high*)
+Column 6: hazard ratio
+Column 7: 1 year mortality ratio
+Column 8: 2 year mortality ratio
+Column 9: 5 year mortality ratio
 
 # Contributing to NEEP
 
