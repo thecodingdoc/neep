@@ -24,44 +24,51 @@ bibliography: paper.bib
 # Summary
 
 When conducting survival analysis for molecular expression, a researcher has
-two main options: Cox-Proportional Hazards (CPH) or Kaplan-Meier (KM). CPH uses regression to
-calculate the survival-significance of each expression vector. It has two 
-assumptions that are frequently violated in cancer research. First, CPH 
-assumes that the censoring mechanism is not associated with patient survival.
-When using patients from cancer research, those who survive to the end of 
-the study are likely to have a higher rate of survival than those who did
-not [@west2019]. Second, the core of CPH is the proportional hazards assumption. 
-For molecular data, this assumes that the effect that a molecule has on survival
-is constant over time. This cannot be the case as the pathology of cancer
-changes across stages and time. 
+two main options: a regression test using the continuous expression as the
+independent variable with Cox Proportional Hazards (CPH) or a logrank test
+after separating patients into two groups such as low- vs high-expression
+with the Kaplan-Meier (KM) method. 
+Both methods depend on the proportional hazards assumption, but using a
+binary variable performs better when this assumption is violated.
+Yet, KM survival analysis requires that the patients are split into two
+groups by a molecular expression threshold. And the choice of a 
+threshold when splitting up a continuous variable has been shown to be
+sensitive to patient group re-sampling [@sehgal2015]. 
 
-KM is non-parametric and uses a log-rank test to check if patients with
-low expression of the molecule of interest have altered survival rates 
-from those with high expression. KM has the same two assumptions mentioned
-for CPH. In addition, high-throughput KM survival analysis
-using a single threshold has been shown to be sensitive to patient group
-re-sampling [@sehgal2015]. However, we can get around the first assumption by conducting
-the log-rank test along a range of splits, where the threshold that 
-splits the expression-ordered list of patients into low- and high-expression
-is tested at multiple points.  The second assumption is weaker in KM than
-in CPH, but it is important that survival-significant molecules do not 
-have KM curves that cross. 
- 
-Conducting KM across a range of thresholds for each molecules produces a
-range of p-values, of which we could sample the minimum. However, 
-taking the lowest p-value from a range will produce a non-uniform, 
+To circumvent the need for a molecular expression threshold, the logrank
+test can be calculated across a range of thresholds, producing a range 
+of p-values. Choosing the minimum p-value from this range identifies the
+optimal split of patients into two groups, given a single molecular expression
+vector. 
+However, taking the lowest p-value from a range will produce a non-uniform, 
 right-skewed distribution of p-values. Since p-values should be uniform
 under the null distribution, the skewed distribution cannot be used for
 valid statistical analysis.
-An equation was developed that could predict the correct p-values was
-developed [@lausen1992]; however, it is not precise enough for p-value correction
-procedures that are sensitive to very small p-value changes. Thus, we 
-developed NEEP, which overcomes these issues by re-sampling permutations
-of the patients to construct a null distribution in parallel. Using this
-null distribution, NEEP transforms the p-values so they are statistically
-valid. Finally, NEEP conducts False Discovery Rate (FDR) p-value correction and calculates 
+An equation was developed that could predict the correct p-values 
+[@lausen1992]; however, the precision given by the original authors
+is not precise enough for p-value correction
+procedures which are sensitive to very small p-value changes.
+Thus, we developed NEEP, which overcomes this issue by sampling the 
+null distribution using a bootstrapping procedure implemented in parallel 
+[@west2019].
+
+The null distribution is constructed by repeatedly permuting the patient order,
+without replacement. For each permutation, the minimum p-value is calculated
+and added to the null distribution. 
+Separately, the minimum p-value is obtained for each molecular expression vector.
+This null distribution is used to empirically determine the true p-values
+for this list of molecular expression vector p-values.
+In this way, the precision of the procedure is dependent on the number of 
+samples (permutations) used to generate the null distribution.
+Since the null distribution is generated from the same set of patients,
+the corrected p-values are guaranteed to be uniform under the null if random.
+In other words, the minimum p-values for a set of random molecular expression 
+vectors is the same as the null distribution.
+Because of this, the type 1 error and the FDR are guaranteed to be controlled.
+Finally, NEEP conducts False Discovery Rate (FDR) p-value correction and calculates 
 effect sizes, the hazard ratio and the 1, 2, and 5 year mortality
 ratios.
+
 
 
 # Statement of Need 
