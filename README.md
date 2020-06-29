@@ -16,7 +16,13 @@ cd ~/neep
 make
 ```
 
-The ```neep``` executable will be located in ~/neep. Add this to your path variable. 
+The ```neep``` executable will be located in ~/neep. Add this to your path variable. This may be done by adding the following command to the .bashrc file.
+
+```console
+export PATH=$PATH:~/neep
+```
+
+
 If ```git``` is not used but the repository zip is downloaded instead, the directory name should be changed to neep and chmod should be used to allow reading and writing.  
 
 The installation can be tested using the following commands.
@@ -26,14 +32,14 @@ cd ~/neep/test
 sh test.sh
 ```
 
-The output listed in "test\_output.txt" should be nearly identical to that in "correct\_test\_output.txt". The ID, the BEST\_STATISTIC, the BEST\_SPLIT, and the DIRECTION columns should be identical. The remaining columns are subject to changes from the null distribution bootstrapping procedure. For rows with tied adjusted NEEP p-values, their order might be different.
+The output listed in "test\_output.txt" should be nearly identical to that in "correct\_test\_output.txt". Only the P-VALUE and FDR columns should be different. These two columns are subject to changes from the null distribution bootstrapping procedure. For rows with tied adjusted NEEP p-values, their order might be different.
 
 For preprocessing data before NEEP, any transformation which does not alter the expression order of patients for individual molecular objects will not effect NEEP results. For example, log-transformation is not required but not prohibited. The test data was generated and modified from the lung cancer (LUAD) dataset from the TCGA portal (https://portal.gdc.cancer.gov/). The test data should not be used for downstream biological analyses.
 
 ## Usage
 
 ```console
-neep -c <clinical filename> -e <expression filename> -o <output filename> -n <size of null distribution to sample> -t <minimum threshold to check> -u
+neep -c <clinical filename> -e <expression filename> -o <output filename> -n <number of bootstrap samples> -t <minimum threshold to check> -u
 ```
 
 The minimum threshold to check refers to the lowest acceptable split between low and high expression when conducting KM tests. The maximum threshold will automatically be 1-t. The ```-u``` (optional) option is for to force a uniform null distribution. We were seeing some weird activity from c++ method random_shuffle() and we found that manually assigning a uniform distribution generator we obtained nulls which matched those from the Python and Julia programming languages (previous versions of NEEP).
@@ -62,13 +68,14 @@ The output will be in tab-separated format with a header. Each line corresponds 
 
 Column 1: molecular object ID; the same IDs used from the user defined expression file
 Column 2: best log-rank statistic; the highest log-rank statistic generated across the threshold range
-Column 3: null empirically estimated p-value (neep)
-Column 4: FDR adjusted neep; column 3 after FDR p-value correction
-Column 5: direction (i.e. which survival curve is higher, *low* or *high*)
-Column 6: hazard ratio
-Column 7: 1 year mortality ratio
-Column 8: 2 year mortality ratio
-Column 9: 5 year mortality ratio
+Column 3: the number of patients in the *low* expression group
+Column 4: null empirically estimated p-value (neep)
+Column 5: FDR adjusted neep; column 3 after FDR p-value correction
+Column 6: direction (i.e. which survival curve is higher, *low* or *high*)
+Column 7: hazard ratio
+Column 8: 1 year mortality ratio
+Column 9: 2 year mortality ratio
+Column 10: 5 year mortality ratio
 
 # Contributing to NEEP
 
