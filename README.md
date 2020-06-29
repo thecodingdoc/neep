@@ -67,14 +67,23 @@ This file is the normal expression matrix, where the rows are the molecular obje
 The output will be in tab-separated format with a header. Each line corresponds to one line from the expression matrix input. The molecular objects are ordered from lowest to highest adjusted NEEP p-value.
 
 Column 1: molecular object ID; the same IDs used from the user defined expression file
+
 Column 2: best log-rank statistic; the highest log-rank statistic generated across the threshold range
+
 Column 3: the number of patients in the *low* expression group
+
 Column 4: null empirically estimated p-value (neep)
+
 Column 5: FDR adjusted neep; column 3 after FDR p-value correction
+
 Column 6: direction (i.e. which survival curve is higher, *low* or *high*)
+
 Column 7: hazard ratio
+
 Column 8: 1 year mortality ratio
+
 Column 9: 2 year mortality ratio
+
 Column 10: 5 year mortality ratio
 
 # Contributing to NEEP
