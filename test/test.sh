@@ -1,9 +1,15 @@
 #!/bin/sh
 PVAL=0.01
 
+if [ ! -e ../neep ]
+then
+    echo "Build neep first. In distribution directory, run 'make'."
+    exit 1
+fi
+
 if [ ! -e test_output.txt ]
 then
-    neep -c test_clinical.csv -e test_expression.csv -o test_output.txt -n 20000 -t 0.15
+    ../neep -c test_clinical.csv -e test_expression.csv -o test_output.txt -n 20000 -t 0.15
 else
     echo **note: using previously generated 'test_output.txt'.
     echo **note: delete if a re-run is desired.
