@@ -8,7 +8,14 @@ Additional processing on NEEP output into protein interaction visualizations can
 
 ## Installation
 
-Installation requires g++, git, and OpenMP. NEEP can be installed with the following commands.
+Installation requires make, g++ and git. The g++ compiler must support the
+[OpenMP](https://www.openmp.org/resources/openmp-compilers-tools/) API.
+GNU GCC (http://gcc.gnu.org/) will work, for example.
+
+Run ``make check`` to confirm that OpenMP is supported by your compiler.
+
+
+NEEP can be installed with the following commands.
 
 ```console
 git clone https://github.com/thecodingdoc/neep.git

@@ -17,5 +17,8 @@ neep: $(OBJS)
 	$(CXX) $(OBJS) -o neep $(OMPFLAGS)
 
 clean:
-	rm -rf *.o neep
+	rm -rf *.o a.out check neep
+check:
+	@if $(CXX) $(OMPFLAGS) _.c ; then echo success ;  exit 0 ; else echo "Your compiler does not support OpenMP." ; exit 1 ; fi
+	@touch check
 	
