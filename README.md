@@ -8,7 +8,14 @@ Additional processing on NEEP output into protein interaction visualizations can
 
 ## Installation
 
-Installation requires g++, git, and OpenMP. NEEP can be installed with the following commands.
+Installation requires make, g++ and git. The g++ compiler must support the
+[OpenMP](https://www.openmp.org/resources/openmp-compilers-tools/) API.
+GNU GCC (http://gcc.gnu.org/) will work, for example.
+
+Run ``make check`` to confirm that OpenMP is supported by your compiler.
+
+
+NEEP can be installed with the following commands.
 
 ```console
 git clone https://github.com/thecodingdoc/neep.git
@@ -32,9 +39,13 @@ cd ~/neep/test
 sh test.sh
 ```
 
-The output listed in "test\_output.txt" should be nearly identical to that in "correct\_test\_output.txt". Only the P-VALUE and FDR columns should be different. These two columns are subject to changes from the null distribution bootstrapping procedure. For rows with tied adjusted NEEP p-values, their order might be different.
+This command will execute NEEP on test data and produce ``test_output.txt``.
+It will check that the survival calls made for genes with low p-value are in
+the same direction (high or low expression having increased survival) are
+the same between the baseline run (``correct_ouput.txt``) and the test run.
 
-For preprocessing data before NEEP, any transformation which does not alter the expression order of patients for individual molecular objects will not effect NEEP results. For example, log-transformation is not required but not prohibited. The test data was generated and modified from the lung cancer (LUAD) dataset from the TCGA portal (https://portal.gdc.cancer.gov/). The test data should not be used for downstream biological analyses.
+
+For preprocessing data before NEEP, any transformation which does not alter the expression order of patients for individual molecular objects will not affect NEEP results. For example, log-transformation is not required but not prohibited. The test data was generated and modified from the lung cancer (LUAD) dataset from the TCGA portal (https://portal.gdc.cancer.gov/). The test data should not be used for downstream biological analyses.
 
 ## Usage
 
