@@ -164,7 +164,7 @@ void calculateBestLogRank(vector<ExpressionData> &expression,
      // take care of ties
      while (fabs(expression[i].exprVect[index[pPairs[currPos].first]] -
                 expression[i].exprVect[index[pPairs[currPos + 1].first]]) <
-            epsilon) {
+            epsilon && currPos <= maxInd) {
        currPos++;
      }
 
