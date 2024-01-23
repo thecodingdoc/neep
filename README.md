@@ -89,7 +89,7 @@ Column 5: FDR adjusted neep; column 3 after FDR p-value correction
 
 Column 6: direction (i.e. which survival curve is higher, *low* or *high*)
 
-Column 7: hazard ratio
+Column 7: hazard ratio. Please note that a high hazard ratio value indicates low probability of survival for patients expressing low values of a splice variant.
 
 Column 8: 1 year mortality ratio
 
